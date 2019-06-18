@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Error from './Error'
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState('')
@@ -37,6 +38,7 @@ function Search() {
           />
         </div>
       </div>
+      {error ? <Error message="Agrega un término de búsqueda" /> : null}
     </form>
   )
 }
