@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Error from './Error'
 
-function Search() {
+function Search({ setSearch }) {
   const [searchTerm, setSearchTerm] = useState('')
   const [error, setError] = useState(false)
 
@@ -16,6 +16,7 @@ function Search() {
 
     // Enviar el término hacia el componente principal
     setError(false)
+    setSearch(searchTerm)
   }
   return (
     <form onSubmit={searchImage}>
