@@ -22,7 +22,7 @@ function App() {
       const result = await response.json()
       console.log(result)
 
-      setImages(resul.hits)
+      setImages(result.hits)
     }
     consultApi()
   }, [search])
