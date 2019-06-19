@@ -1,26 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import Search from './components/Search'
+import ImagesList from './components/ImagesList'
 
 function App() {
+  const [search, setSearch] = useState('')
+  const [images, setImages] = useState([])
+
+  useEffect(() => {
+    const consultApi = async () => {
+      if (search === '') return
+      const imagesPerPage = 30
+      const key = '12813467-683621e872020913560670ca9'
+      const url = `https://pixabay.com/api/?key=${key}&q=${search}&per_page=${imagesPerPage}`
+
+      // ---- CON AXIOS
+      // const result = await axios.get(url)
+      // console.log(result.data)
+
+      // --- CON FECTH
+      const response = await fetch(url)
+      const result = await response.json()
+      console.log(result)
+
+      setImages(resul.hits)
+    }
+    consultApi()
+  }, [search])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app container">
+      <div className="jumbotron">
+        <p className="lead text-center">Buscador de imágenes</p>
+        <Search setSearch={setSearch} />
+      </div>
+      <div className="row justify-content-center">
+        <ImagesList images={images} />
+      </div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
